@@ -28,6 +28,16 @@ class ImageHandler(tornado.web.RequestHandler):
 		else:
 			raise tornado.web.HTTPError(404)
 
+class StreamHandler(tornado.web.RequestHandler):
+	def get(self, track_id):
+		self.set_header("Content-Type", "audio/mpeg")
+
+		filepath = library[int(track_id)]["filepath"]
+
+		with open(filepath, "rb") as f:
+			self.write(f.read())
+
+
 class TrackHandler(tornado.web.RequestHandler):
 	def get(self, track_id):
 		self.set_header("Content-Type", "application/json")
@@ -68,6 +78,7 @@ application = tornado.web.Application([
 	(r"/api/getlibrary", LibraryHandler),
 	(r"/api/track/(\d+)", TrackHandler),
 	(r"/api/image/([0-9A-F]{32})", ImageHandler),
+	(r"/stream/(\d+)", StreamHandler),
 	(r"/cats", tornado.web.StaticFileHandler, dict(path=settings['static_path'])) #fixme
 ], **settings)
 

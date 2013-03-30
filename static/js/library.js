@@ -52,6 +52,10 @@ function drawTable(tracks){
 		.append("tr")
 			.attr("onclick", function (d, i) { return "trackClick(" + d.index + ",true);"; });
 
+	rows.append("td").append("button")
+			.attr("onclick", function (d, i) { return "trackPlay(" + d.index + ")"; })
+			.text("play");
+
 	var cells = rows.selectAll("td")
 		.data(function(row){
 			return [
@@ -102,4 +106,9 @@ function trackClick(index, click) {
 			$("div#trackview").show();
 		}
 	});*/
+}
+
+function trackPlay(index) {
+	d3.select("audio#player")
+		.attr("src", "/stream/" + index);
 }
