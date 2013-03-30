@@ -579,7 +579,8 @@ class Tag(collections.MutableMapping, metaclass=abc.ABCMeta):
             file.seek(offset)
             tag = cls()
             tag._read_header(file)
-            for (frameid, bflags, data) in tag._read_frames(file):
+            frames = tag._read_frames(file)
+            for (frameid, bflags, data) in frames:
                 if len(data) == 0:
                     warn("{0}: Ignoring empty frame".format(frameid), 
                          EmptyFrameWarning)
@@ -588,8 +589,6 @@ class Tag(collections.MutableMapping, metaclass=abc.ABCMeta):
                     if frame is not None:
                         l = tag._frames.setdefault(frame.frameid, [])
                         l.append(frame)
-                        if file.tell() > tag.offset + tag.size:
-                            break
                         i += 1
             try:
                 tag._filename = file.name

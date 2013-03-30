@@ -1,0 +1,35 @@
+html {
+	font-family: Roboto, sans-serif;
+	font-size: 12px;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #aaaaaa;
+	padding: 4px;
+}
+
+	tr:hover {
+		background-color: #eeeeee;
+	}
+
+/*table tr:first-child td:first-child,th:first-child {
+	border-top-left-radius: 4px;
+}
+
+table tr:first-child td:last-child,th:last-child {
+	border-top-right-radius: 4px;
+}
+
+table tr:last-child td:first-child,th:first-child {
+	border-bottom-left-radius: 4px;
+}
+
+table tr:last-child td:last-child,th:last-child {
+	border-bottom-right-radius: 4px;
+}*/

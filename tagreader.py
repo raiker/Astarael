@@ -3,44 +3,66 @@ import os
 import re
 import codecs
 import pickle
+import hashlib
+import base64
 
 from stagger.id3 import *
 
-basepath = "T:/"
-
-artists = {}
+basepath = "T:/Between the Buried and Me"
 
 file_matcher = re.compile(r".*\.(mp3)")
+
+image_dict = {}
+tracks = []
+#artists = {}
+
+i = 0
 
 for dirpath, dirnames, filenames in os.walk(basepath):
 	for filename in filenames:
 		if file_matcher.match(filename):
 			filepath = os.path.join(dirpath, filename)
 
-			#print(filepath)
 			try:
 				tag = stagger.read_tag(filepath)
 
-				albums = artists.setdefault(tag.artist, {})
-				discs = albums.setdefault(tag.album, {})
+				albumart = {}
+				if 'APIC' in tag._frames:
+					apic_frame = tag._frames['APIC']
+					for art in apic_frame:
+						m = hashlib.md5()
+						m.update(art.data)
+						hashdata = m.digest()
+						hash = base64.b16encode(hashdata).decode("ASCII")
 
-				discnum = tag.disc if tag.disc > 0 else 1
+						if not hash in image_dict:
+							image_dict[hash] = {
+								"mimetype": art.mime,
+								"data": art.data
+							}
 
-				tracks = discs.setdefault(discnum, {})
-				tracks[tag.track] = tag.title
+						albumart[art.type] = hash
+
+				tracks.append({
+					"index": i,
+					"title": tag.title,
+					"track": tag.track,
+					"artist": tag.artist,
+					"album": tag.album,
+					"disc": tag.disc if tag.disc > 0 else 1,
+					"album_artist": tag.album_artist if tag.album_artist != "" else tag.artist,
+					"date": tag.date,
+					"filepath": filepath,
+					"album_art": albumart
+				})
+				i = i + 1
+
+				if i % 100 == 0:
+					print("{0} tracks".format(i))
+
 			except stagger.errors.NoTagError as err:
 				#print("No tag found in {0}".format(filepath))
-				pass
-
+				print("No tag found in file")
+				#pass
 with open("astarael.db","wb") as f:
-	pickle.dump(artists, f)
-
-with codecs.open('out.txt', 'w', 'utf-8-sig') as f:
-	for artist, albums in artists.items():
-		f.write(artist + "\n")
-		for album, discs in albums.items():
-			f.write("\t{0} - {1} disc(s)\n".format(album, len(discs)))
-			for disc, tracks in discs.items():
-				f.write("\t\tDisc {0}\n".format(disc))
-				for track, trackname in tracks.items():
-					f.write("\t\t\t" + str(track) + " - " + trackname + "\n")
+	pickle.dump((tracks, image_dict), f)

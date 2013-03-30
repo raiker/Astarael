@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>869a6f0e-f41d-45fe-8010-59593bd89bbc</ProjectGuid>
+    <ProjectHome>..\</ProjectHome>
+    <StartupFile>server.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <InterpreterId>9a7a9026-48c1-4688-9d5d-e5699d47d074</InterpreterId>
+    <InterpreterVersion>3.3</InterpreterVersion>
+    <Name>Astarael</Name>
+    <RootNamespace>Astarael</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="server.py" />
+    <Compile Include="tagreader.py" />
+    <Compile Include="stagger\commandline.py" />
+    <Compile Include="stagger\conversion.py" />
+    <Compile Include="stagger\errors.py" />
+    <Compile Include="stagger\fileutil.py" />
+    <Compile Include="stagger\frames.py" />
+    <Compile Include="stagger\id3.py" />
+    <Compile Include="stagger\id3v1.py" />
+    <Compile Include="stagger\specs.py" />
+    <Compile Include="stagger\tags.py" />
+    <Compile Include="stagger\util.py" />
+    <Compile Include="stagger\__init__.py" />
+    <Content Include="views\library.html" />
+    <Content Include="static\css\style.css" />
+    <Content Include="static\js\crossfilter.js" />
+    <Content Include="static\js\d3.v3.js" />
+    <Content Include="static\js\d3.v3.min.js" />
+    <Content Include="static\js\jquery.js" />
+    <Content Include="static\js\library.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="stagger" />
+    <Folder Include="static\" />
+    <Folder Include="static\css" />
+    <Folder Include="static\js" />
+    <Folder Include="views" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
