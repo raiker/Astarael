@@ -1,3 +1,0 @@
-[submodule "pytagger"]
-	path = pytagger
-	url = git://github.com/Unode/pytagger.git
