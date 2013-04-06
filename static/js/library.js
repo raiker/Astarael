@@ -52,9 +52,9 @@ function drawTable(tracks){
 		.append("tr")
 			.attr("onclick", function (d, i) { return "trackClick(" + d.index + ",true);"; });
 
-	rows.append("td").append("button")
+	/*rows.append("td").append("button")
 			.attr("onclick", function (d, i) { return "trackPlay(" + d.index + ")"; })
-			.text("play");
+			.text("play");*/
 
 	var cells = rows.selectAll("td")
 		.data(function(row){
@@ -109,6 +109,6 @@ function trackClick(index, click) {
 }
 
 function trackPlay(index) {
-	d3.select("audio#player")
+	d3.select("audio#player1")
 		.attr("src", "/stream/" + index);
 }

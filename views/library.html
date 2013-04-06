@@ -10,26 +10,40 @@
 	<link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
-	<audio id="player" autoplay="true"></audio>
-	<div id="tracktable">
-		<table>
-			<thead>
-				<tr>
-					<th>Buttons</th>
-					<th>Artist</th>
-					<th>Album</th>
-					<th>Date</th>
-					<th>Disc</th>
-					<th>Track</th>
-					<th>Title</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+	<div id="header">
+		<h1>Astarael</h1>
 	</div>
-	<div id="trackview" style="display:none">
-		<img id="albumart" />
+	<div id="middle">
+		<div id="playqueueview">
+			playlist
+		</div>
+		<div id="mainview">
+			<div id="libraryview">
+				<div id="tracktable">
+					<table>
+						<thead>
+							<tr>
+								<th>Artist</th>
+								<th>Album</th>
+								<th>Date</th>
+								<th>Disc</th>
+								<th>Track</th>
+								<th>Title</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="trackview" style="display: none">
+				<img id="albumart" />
+			</div>
+		</div>
+	</div>
+	<div id="player">
+		player
+		<audio id="player1" autoplay></audio>
 	</div>
 </body>	
 </html>

@@ -3,6 +3,62 @@ html {
 	font-size: 12px;
 }
 
+html, body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	overflow: hidden;
+}
+
+div#header {
+	height: 120px;
+}
+
+div#middle {
+	height: calc(100% - 240px);
+}
+
+div#playqueueview {
+	width: 240px;
+	height: 100%;
+	background-color: #cccccc;
+	position: fixed;
+	padding: 20px;
+}
+
+div#mainview {
+	padding-left: 240px;
+	height: 100%;
+}
+
+div#libraryview {
+	height: 100%;
+}
+
+div#tracktable {
+	height: 100%;
+	overflow: auto;
+}
+
+div#player {
+	position: fixed;
+	bottom: 0px;
+	height: 120px;
+	width: 100%;
+	clear: both;
+	background-color: #222222;
+	color: #dddddd;
+}
+
+h1 {
+	margin: 0px;
+	padding: 1em;
+}
+
+ul.playqueue {
+
+}
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -17,19 +73,3 @@ td, th {
 	tr:hover {
 		background-color: #eeeeee;
 	}
-
-/*table tr:first-child td:first-child,th:first-child {
-	border-top-left-radius: 4px;
-}
-
-table tr:first-child td:last-child,th:last-child {
-	border-top-right-radius: 4px;
-}
-
-table tr:last-child td:first-child,th:first-child {
-	border-bottom-left-radius: 4px;
-}
-
-table tr:last-child td:last-child,th:last-child {
-	border-bottom-right-radius: 4px;
-}*/

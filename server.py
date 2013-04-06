@@ -82,5 +82,5 @@ application = tornado.web.Application([
 	(r"/cats", tornado.web.StaticFileHandler, dict(path=settings['static_path'])) #fixme
 ], **settings)
 
-application.listen(12777);
+application.listen(7742);
 tornado.ioloop.IOLoop.instance().start()
