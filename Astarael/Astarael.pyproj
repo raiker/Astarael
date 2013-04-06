@@ -37,12 +37,15 @@
     <Compile Include="stagger\tags.py" />
     <Compile Include="stagger\util.py" />
     <Compile Include="stagger\__init__.py" />
+    <Content Include="static\js\lib\crossfilter.js" />
+    <Content Include="static\js\lib\d3.js" />
+    <Content Include="static\js\lib\d3.v3.min.js" />
+    <Content Include="static\js\lib\jquery.js" />
+    <Content Include="static\js\lib\require.js" />
+    <Content Include="static\js\main.js" />
+    <Content Include="static\js\playqueue.js" />
     <Content Include="views\library.html" />
     <Content Include="static\css\style.css" />
-    <Content Include="static\js\crossfilter.js" />
-    <Content Include="static\js\d3.v3.js" />
-    <Content Include="static\js\d3.v3.min.js" />
-    <Content Include="static\js\jquery.js" />
     <Content Include="static\js\library.js" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +53,7 @@
     <Folder Include="static\" />
     <Folder Include="static\css" />
     <Folder Include="static\js" />
+    <Folder Include="static\js\lib\" />
     <Folder Include="views" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
