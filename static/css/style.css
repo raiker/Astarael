@@ -12,6 +12,7 @@ html, body {
 
 div#header {
 	height: 120px;
+	background-color: #ddeeff;
 }
 
 div#middle {
@@ -22,7 +23,10 @@ div#playqueueview {
 	width: 240px;
 	height: 100%;
 	background-color: #cccccc;
-	position: fixed;
+	float: left;
+}
+
+ul#playqueuelist {
 	padding: 20px;
 }
 
@@ -35,7 +39,41 @@ div#libraryview {
 	height: 100%;
 }
 
-div#tracktable {
+div#artistview {
+}
+
+div.tile {
+	border: 1px solid #bbbbbb;
+	border-radius: 3px;
+	box-shadow: 3px 3px 3px #bbbbbb;
+	width: 240px;
+	padding: 5px;
+	cursor: pointer;
+	margin: 10px;
+}
+
+	div.tile div.title {
+		font-size: 15px;
+		font-weight: 700;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	div.tile:hover {
+		background-color: #f7f7f7;
+	}
+
+	div.tile:hover div.title {
+		text-decoration: underline;
+	}
+
+	div.tile div.detail {
+		padding-left: 4px;
+		color: #aaaaaa;
+	}
+
+div#mainview>div {
 	height: 100%;
 	overflow: auto;
 }

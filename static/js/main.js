@@ -1,10 +1,17 @@
 requirejs.config({
+	baseUrl: '/static/js/app',
+	paths: {
+		lib: '/static/js/lib',
+	},
 	shim: {
-		d3: {
+		'd3': {
 			exports: 'd3'
+		},
+		'crossfilter': {
+			exports: 'crossfilter'
 		}
 	}
 });
 
-require(["playqueue"], function (playqueue) {
+require(["playqueue", "libraryview"], function (playqueue, libraryview) {
 });

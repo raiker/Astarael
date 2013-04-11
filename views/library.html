@@ -3,9 +3,9 @@
 <head>
 	<title>Astarael</title>
 	<script data-main="static/js/main" src="static/js/lib/require.js"></script>
-	<!--<script type="application/javascript" src="static/js/jquery.js"></script>
-	<script type="application/javascript" src="static/js/d3.v3.js"></script>
-	<script type="application/javascript" src="static/js/crossfilter.js"></script>
+	<!--<script type="application/javascript" src="static/js/lib/jquery.js"></script>
+	<script type="application/javascript" src="static/js/lib/d3.js"></script>
+	<script type="application/javascript" src="static/js/lib/crossfilter.js"></script>
 	<script type="application/javascript" src="static/js/library.js"></script>-->
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="static/css/style.css">
@@ -16,26 +16,29 @@
 	</div>
 	<div id="middle">
 		<div id="playqueueview">
-			playlist
+			Play Queue
+			<ul id="playqueuelist">
+			</ul>			
 		</div>
 		<div id="mainview">
-			<div id="libraryview">
-				<div id="tracktable">
-					<table>
-						<thead>
-							<tr>
-								<th>Artist</th>
-								<th>Album</th>
-								<th>Date</th>
-								<th>Disc</th>
-								<th>Track</th>
-								<th>Title</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-				</div>
+			<div id="artistview">
+
+			</div>
+			<div id="tracktable" style="display: none">
+				<table>
+					<thead>
+						<tr>
+							<th>Artist</th>
+							<th>Album</th>
+							<th>Date</th>
+							<th>Disc</th>
+							<th>Track</th>
+							<th>Title</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
 			</div>
 			<div id="trackview" style="display: none">
 				<img id="albumart" />
