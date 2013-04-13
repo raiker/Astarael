@@ -34,7 +34,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 
 		var container = d3.select("div#artistview");
 
-		tiles.selectAll("div").remove(); //hack
+		container.selectAll("div").remove(); //hack
 
 		var tiles = container.selectAll("div")
 			.data(artists)
