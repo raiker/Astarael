@@ -8,7 +8,7 @@ import base64
 
 from stagger.id3 import *
 
-basepath = "T:/"
+basepath = "T:/Between the Buried and Me"
 
 file_matcher = re.compile(r".*\.(mp3)")
 

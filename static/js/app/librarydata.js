@@ -1,13 +1,13 @@
 //Handles all of the file data from the library
 define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2, $$dummy3) {
-	var trackdata;
+	var trackdata = [];
 
 	//var dimAlbumArtist;
 	//var dimAlbum;
 
 	var album_artists = d3.map();
 
-	function UpdateIndexes(new_tracks) {
+	function IndexTracks(new_tracks) {
 		for (var i in new_tracks) {
 			var track = new_tracks[i];
 
@@ -26,7 +26,9 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 					discs: d3.map(),
 					track_count: 0,
 					disc_count: 0,
-					album_art: undefined
+					album_art: undefined,
+					date: undefined,
+					year: undefined
 				});
 				albartist.album_count++;
 			}
@@ -44,9 +46,16 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 				album.album_art = track.album_art[3];
 			}
 
+			if (track.date && !album.date) {
+				album.date = track.date;
+				album.year = /^\d{4}/.exec(track.date)[0];
+			}
+
 			album.track_count++;
 			albartist.track_count++;
-			disc.tracks.push(i);
+			disc.tracks.push(trackdata.length);
+
+			trackdata.push(track);
 		}
 	}
 
@@ -55,8 +64,7 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 			console.log(err);
 		} else {
 			//trackdata = crossfilter(data);
-			trackdata = data;
-			UpdateIndexes(data);
+			IndexTracks(data);
 
 			updateCallback.fire();
 

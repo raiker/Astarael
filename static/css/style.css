@@ -1,3 +1,7 @@
+.invisible {
+	display: none;
+}
+
 html {
 	font-family: Roboto, sans-serif;
 	font-size: 12px;
@@ -16,23 +20,41 @@ div#header {
 }
 
 div#middle {
+	height: -webkit-calc(100% - 240px);
 	height: calc(100% - 240px);
 }
 
-div#playqueueview {
+div#playqueue_view {
 	width: 240px;
 	height: 100%;
 	background-color: #cccccc;
 	float: left;
 }
 
-ul#playqueuelist {
-	padding: 20px;
+ul#playqueue_list {
 }
+
+	ul#playqueue_list li {
+		list-style: none none outside;
+		cursor: pointer;
+	}
+
+		ul#playqueue_list li:hover {
+			list-style: none none outside;
+			background-color: #bbbbbb;
+		}
+
+		ul#playqueue_list li.current {
+			list-style-image: url(/static/img/now-playing.svg);
+		}
 
 div#mainview {
 	padding-left: 240px;
 	height: 100%;
+}
+
+div#loadingview {
+	background: url("/static/img/ajax-loader.gif") no-repeat center center;
 }
 
 div#libraryview {
@@ -46,18 +68,27 @@ div.tile {
 	border: 1px solid #bbbbbb;
 	border-radius: 3px;
 	box-shadow: 3px 3px 3px #bbbbbb;
-	width: 240px;
+	width: 360px;
+	height: 96px;
 	padding: 5px;
 	cursor: pointer;
 	margin: 10px;
+	clear: none;
+	float: left;
 }
+	div.tile img {
+		width: 96px;
+		height: 96px;
+		float: left;
+		margin-right: 5px;
+	}
 
 	div.tile div.title {
 		font-size: 15px;
 		font-weight: 700;
-		text-overflow: ellipsis;
+		/*text-overflow: ellipsis;
 		white-space: nowrap;
-		overflow: hidden;
+		overflow: hidden;*/
 	}
 
 	div.tile:hover {
@@ -77,6 +108,38 @@ div#mainview>div {
 	height: 100%;
 	overflow: auto;
 }
+
+img#trackview_albumart {
+	width: 192px;
+	height: 192px;
+	/*float: left;*/
+}
+
+div#trackview_title {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+div#trackview_discs {
+	padding-left: 4px;
+}
+
+div.trackview_disc {
+	padding-top: 4px;
+}
+
+div.trackview_discheader {
+	font-weight: 700;
+}
+
+div.trackentry {
+	padding: 3px 0px 3px 4px;
+	cursor: pointer;
+}
+
+	div.trackentry:hover {
+		background-color: #f7f7f7;
+	}
 
 div#player {
 	position: fixed;

@@ -15,16 +15,26 @@
 		<h1>Astarael</h1>
 	</div>
 	<div id="middle">
-		<div id="playqueueview">
+		<div id="playqueue_view">
 			Play Queue
-			<ul id="playqueuelist">
+			<ul id="playqueue_list">
 			</ul>			
 		</div>
 		<div id="mainview">
-			<div id="artistview">
+			<div id="loadingview">
+			</div>
+			<div id="artistview" class="invisible">
 
 			</div>
-			<div id="tracktable" style="display: none">
+			<div id="albumview" class="invisible">
+
+			</div>
+			<div id="trackview" class="invisible">
+				<img id="trackview_albumart" />
+				<div id="trackview_title"></div>
+				<div id="trackview_discs"></div>
+			</div>
+			<div id="tracktable" class="invisible">
 				<table>
 					<thead>
 						<tr>
@@ -40,14 +50,10 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="trackview" style="display: none">
-				<img id="albumart" />
-			</div>
 		</div>
 	</div>
 	<div id="player">
-		player
-		<audio id="player1" autoplay></audio>
+		<audio id="player1" controls autoplay></audio>
 	</div>
 </body>	
 </html>
