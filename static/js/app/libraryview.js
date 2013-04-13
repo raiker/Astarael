@@ -8,7 +8,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 	window.onpopstate = function (event) {
 		if (event.state == null) {
 			//we're displaying the artist listing
-			DrawArtistView();
+			//DrawArtistView();
 			ShowArtistView();
 		} else {
 			switch (event.state.view) {
@@ -33,6 +33,8 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 		});
 
 		var container = d3.select("div#artistview");
+
+		tiles.selectAll("div").remove(); //hack
 
 		var tiles = container.selectAll("div")
 			.data(artists)
@@ -81,6 +83,8 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 		});
 
 		var container = d3.select("div#albumview");
+
+		container.selectAll("div").remove(); //hack
 
 		var tiles = container.selectAll("div")
 			.data(albums.map(function (album_name) {
