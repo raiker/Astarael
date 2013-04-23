@@ -41,9 +41,11 @@
     <Content Include="static\js\app\librarydata.js" />
     <Content Include="static\js\app\libraryview.js" />
     <Content Include="static\js\app\playqueue.js" />
+    <Content Include="static\js\app\viewcontroller.js" />
     <Content Include="static\js\lib\crossfilter.js" />
     <Content Include="static\js\lib\d3.js" />
     <Content Include="static\js\lib\d3.v3.min.js" />
+    <Content Include="static\js\lib\jquery-ui.min.js" />
     <Content Include="static\js\lib\jquery.js" />
     <Content Include="static\js\lib\require.js" />
     <Content Include="static\js\main.js" />

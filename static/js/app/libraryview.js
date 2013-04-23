@@ -1,27 +1,28 @@
-define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (librarydata, playqueue, $$dummy1, $$dummy2) {
+define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
+	function (librarydata, playqueue, $$dummy1, $$dummy2, viewcontroller) {
 	//called whenever tracks are added to the library
 	librarydata.onUpdate.add(function () {
 		DrawArtistView();
-		ShowArtistView();
+		viewcontroller.ShowArtistView();
 	});
 
 	window.onpopstate = function (event) {
 		if (event.state == null) {
 			//we're displaying the artist listing
 			//DrawArtistView();
-			ShowArtistView();
+			viewcontroller.ShowArtistView();
 		} else {
 			switch (event.state.view) {
 				case "artist":
 					var artist_name = event.state.artist;
 					DrawAlbumView(artist_name);
-					ShowAlbumView();
+					viewcontroller.ShowAlbumView();
 					break;
 				case "album":
 					var artist_name = event.state.artist;
 					var album_name = event.state.album;
 					DrawTrackView(artist_name, album_name);
-					ShowTrackView();
+					viewcontroller.ShowTrackView();
 					break;
 			}
 		}
@@ -47,7 +48,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 						view: "artist",
 						artist: artist_name
 					}, artist_name, "/artist/" + artist_name + "/");
-					ShowAlbumView();
+					viewcontroller.ShowAlbumView();
 				});
 
 		tiles.append("div")
@@ -100,7 +101,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 						artist: artist_name,
 						album: album.name
 					}, artist_name + " - " + album.name, "/artist/" + artist_name + "/album/" + album.name + "/");
-					ShowTrackView();
+					viewcontroller.ShowTrackView();
 				});
 
 		//album art
@@ -174,20 +175,5 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery'], function (libraryda
 			.text(function (d, i) {
 				return d.value.title;
 			});
-	}
-
-	function ShowArtistView() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#artistview").removeClass("invisible");
-	}
-
-	function ShowAlbumView() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#albumview").removeClass("invisible");
-	}
-
-	function ShowTrackView() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#trackview").removeClass("invisible");
 	}
 });
