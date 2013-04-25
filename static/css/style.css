@@ -141,6 +141,28 @@ div.trackentry {
 		background-color: #f7f7f7;
 	}
 
+div.link {
+	cursor: pointer;
+	color: #8888ff;
+	padding: 4px;
+	width: 260px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+	div.link:hover {
+		text-decoration: underline;
+	}
+
+.success {
+	color: green;
+}
+
+.failure {
+	color: red;
+}
+
 div#player {
 	position: fixed;
 	bottom: 0px;
@@ -149,6 +171,14 @@ div#player {
 	clear: both;
 	background-color: #222222;
 	color: #dddddd;
+}
+
+div.error_box {
+	padding: 20px;
+	background-color: #eecccc;
+	border: 1px solid #bb2222;
+	border-radius: 12px;
+	width: 200px;
 }
 
 h1 {

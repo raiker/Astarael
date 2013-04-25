@@ -23,10 +23,16 @@ define(['lib/jquery'], function ($$dummy1) {
 		$("div#settingsview").removeClass("invisible");
 	}
 
+	function ShowFolderPicker() {
+		$("div#mainview>div").addClass("invisible");
+		$("div#libraryDirPicker").removeClass("invisible");
+	}
+
 	return {
 		ShowArtistView: ShowArtistView,
 		ShowAlbumView: ShowAlbumView,
 		ShowTrackView: ShowTrackView,
-		ShowSettings: ShowSettings
+		ShowSettings: ShowSettings,
+		ShowFolderPicker: ShowFolderPicker,
 	}
 });

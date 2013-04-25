@@ -6,9 +6,43 @@ import os
 import stagger
 import base64
 import hashlib
+import win32api
 
-with open("astarael.db", "rb") as f:
-    (library, image_dict) = pickle.load(f)
+try:
+    with open("astarael.db", "rb") as f:
+        (library, image_dict) = pickle.load(f)
+except:
+    library = []
+    image_dict = {}
+
+try:
+    with open("astarael.settings", "rb") as f:
+        astarael_settings = pickle.load(f)
+except:
+    astarael_settings = {"libpath": ""}
+
+def getDirs(path):
+    if path == '':
+        if os.name == 'nt':
+            #List all the drives
+            return {"dir": "",
+                    "parent": "",
+                    "valid": False,
+                    "subdirs": {drive: drive for drive in win32api.GetLogicalDriveStrings().split('\000')[:-1]}}
+        else:
+            return {"dir": "/", "parent": "", "valid": True, "subdirs": {'/': '/'}}
+
+    if os.path.isdir(path):
+        isdrive = False
+        if os.name == 'nt' and len(path) == 3:
+            isdrive = True
+        return {"dir": os.path.normpath(path),
+                "parent": os.path.normpath(path + "/../") if not isdrive else "",
+                "valid": True,
+                "subdirs": {name: os.path.join(path, name) for name in os.listdir(path)
+                            if os.path.isdir(os.path.join(path, name))}}
+    else:
+        raise FileNotFoundError("Error: Invalid directory \"" + path + "\"");
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -37,6 +71,19 @@ class StreamHandler(tornado.web.RequestHandler):
         with open(filepath, "rb") as f:
             self.write(f.read())
 
+class FsBrowseHandler(tornado.web.RequestHandler):
+    def get(self, path):
+        #self.set_header("Content-Type", "application/json")
+        self.write(json.dumps(getDirs(path)));
+
+class SettingsHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write(json.dumps(astarael_settings));
+
+    def post(self):
+        astarael_settings['libpath'] = self.get_argument('libpath');
+        with open("astarael.settings", "wb") as f:
+            pickle.dump(astarael_settings, f)
 
 class TrackHandler(tornado.web.RequestHandler):
     def get(self, track_id):
@@ -77,6 +124,8 @@ application = tornado.web.Application([(r"/", MainHandler),
     (r"/api/getlibrary", LibraryHandler),
     (r"/api/track/(\d+)", TrackHandler),
     (r"/api/image/([0-9A-F]{32})", ImageHandler),
+    (r"/api/fs/browse/(.*)", FsBrowseHandler),
+    (r"/api/settings", SettingsHandler),
     (r"/stream/(\d+)", StreamHandler),
     (r"/cats", tornado.web.StaticFileHandler, dict(path=settings['static_path'])) #fixme
 ], **settings)

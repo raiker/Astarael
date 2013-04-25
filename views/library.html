@@ -52,7 +52,19 @@
 				</table>
 			</div>
 			<div id="settingsview" class="invisible">
-
+				<h3>Settings <span class="invisible" id="saveResult"></span></h3>
+				<label for="txtLibraryPath">Library Path</label>
+				<input id="txtLibraryPath" type="text" />
+				<button id="btnBrowseLibraryPath">Browse...</button>
+			</div>
+			<div id="libraryDirPicker" class="invisible">
+				<div id="libraryDirPickerTitle"></div>
+				<div>Current directory: <span id="curdir"></span></div>
+				<button id="btnPickDirectory">Pick Directory</button>
+				<button id="btnCancelPick">Cancel</button>
+				<div class="link" id="parentdirlink">Parent directory</div>
+				<div id="subdirectory_list"></div>
+				<div class="error_box invisible"></div>
 			</div>
 		</div>
 	</div>

@@ -13,5 +13,5 @@ requirejs.config({
 	}
 });
 
-require(["playqueue", "libraryview"], function (playqueue, libraryview) {
+require(["playqueue", "libraryview", "settings"], function (playqueue, libraryview, settings) {
 });

@@ -25,6 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="server.py" />
+    <Compile Include="setup.py" />
     <Compile Include="tagreader.py" />
     <Compile Include="stagger\commandline.py" />
     <Compile Include="stagger\conversion.py" />
@@ -41,6 +42,8 @@
     <Content Include="static\js\app\librarydata.js" />
     <Content Include="static\js\app\libraryview.js" />
     <Content Include="static\js\app\playqueue.js" />
+    <Content Include="static\js\app\settings.js" />
+    <Content Include="static\js\app\folderpicker.js" />
     <Content Include="static\js\app\viewcontroller.js" />
     <Content Include="static\js\lib\crossfilter.js" />
     <Content Include="static\js\lib\d3.js" />
