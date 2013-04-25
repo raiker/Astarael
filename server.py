@@ -1,5 +1,7 @@
 import tornado.ioloop
+import tornado.platform
 import tornado.web
+import tornado.websocket
 import pickle
 import json
 import os
@@ -7,6 +9,10 @@ import stagger
 import base64
 import hashlib
 import win32api
+import datetime
+import threading
+
+import scanner
 
 try:
     with open("astarael.db", "rb") as f:
@@ -20,6 +26,31 @@ try:
         astarael_settings = pickle.load(f)
 except:
     astarael_settings = {"libpath": ""}
+
+notification_sockets = []
+
+scan_running = False
+
+class LibraryScanThread(threading.Thread):
+    def __init__(self, basepath):
+        super().__init__()
+        self.basepath = basepath
+        
+    def run(self):
+        global scan_running, library, image_dict
+        #will be run as the background worker thread, all web calls need to be invoked
+        (new_lib, new_image_dict) = scanner.scan(self.basepath, lambda msg: self.InvokePostMessage(msg));
+        library = new_lib;
+        image_dict = new_image_dict;
+        self.InvokePostMessage("Library scan complete", "libraryUpdate");
+        scan_running = False;
+
+    def InvokePostMessage(self, msg, action = None):
+        astarael_ioloop.add_callback(PostNotificationMessage, msg, action);
+
+def PostNotificationMessage(msg, action = None):
+    for socket in notification_sockets:
+        socket.write_message({"time": datetime.datetime.now().isoformat(), "msg": msg, "action": action})
 
 def getDirs(path):
     if path == '':
@@ -46,7 +77,7 @@ def getDirs(path):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("views/library.html")
+        self.render("views/library.html", host=self.request.host)
 
 class LibraryHandler(tornado.web.RequestHandler):
     def get(self):
@@ -73,7 +104,7 @@ class StreamHandler(tornado.web.RequestHandler):
 
 class FsBrowseHandler(tornado.web.RequestHandler):
     def get(self, path):
-        #self.set_header("Content-Type", "application/json")
+        self.set_header("Content-Type", "application/json")
         self.write(json.dumps(getDirs(path)));
 
 class SettingsHandler(tornado.web.RequestHandler):
@@ -84,6 +115,29 @@ class SettingsHandler(tornado.web.RequestHandler):
         astarael_settings['libpath'] = self.get_argument('libpath');
         with open("astarael.settings", "wb") as f:
             pickle.dump(astarael_settings, f)
+
+class RescanHandler(tornado.web.RequestHandler):
+    def post(self):
+        global scan_running
+
+        if not scan_running:
+            PostNotificationMessage("Library rescan started: {0}".format(astarael_settings['libpath']))
+            library_scanner_thread = LibraryScanThread(astarael_settings['libpath'])
+            scan_running = True
+            library_scanner_thread.start()
+        else:
+            PostNotificationMessage("Library scan currently in progress")
+
+class WSNotificationHandler(tornado.websocket.WebSocketHandler):
+    def open(self):
+        notification_sockets.append(self)
+
+    def on_message(self, message):
+        print(message)
+
+    def on_close(self):
+        notification_sockets.remove(self)
+
 
 class TrackHandler(tornado.web.RequestHandler):
     def get(self, track_id):
@@ -126,9 +180,13 @@ application = tornado.web.Application([(r"/", MainHandler),
     (r"/api/image/([0-9A-F]{32})", ImageHandler),
     (r"/api/fs/browse/(.*)", FsBrowseHandler),
     (r"/api/settings", SettingsHandler),
+    (r"/api/rescanlibrary", RescanHandler),
+    (r"/ws/notification", WSNotificationHandler),
     (r"/stream/(\d+)", StreamHandler),
     (r"/cats", tornado.web.StaticFileHandler, dict(path=settings['static_path'])) #fixme
 ], **settings)
 
 application.listen(17742)
-tornado.ioloop.IOLoop.instance().start()
+#tornado.ioloop.IOLoop.instance().start()
+astarael_ioloop = tornado.platform.select.SelectIOLoop.instance()
+astarael_ioloop.start()

@@ -59,18 +59,23 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 		}
 	}
 
-	d3.json("/api/getlibrary", function (err, data) {
-		if (err) {
-			console.log(err);
-		} else {
-			//trackdata = crossfilter(data);
-			IndexTracks(data);
+	function ForceUpdate() {
+		d3.json("/api/getlibrary", function (err, data) {
+			if (err) {
+				console.log(err);
+			} else {
+				//trackdata = crossfilter(data);
+				trackdata = [];
+				IndexTracks(data);
 
-			updateCallback.fire();
+				updateCallback.fire();
 
-			//dimAlbumArtist = trackdata.dimension(function (d) { return d.album_artist; });
-		}
-	});
+				//dimAlbumArtist = trackdata.dimension(function (d) { return d.album_artist; });
+			}
+		});
+	}
+
+	ForceUpdate();
 
 	var updateCallback = $.Callbacks();
 
@@ -78,6 +83,7 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 		onUpdate: updateCallback,
 		tracks: trackdata,
 		album_artists: album_artists,
+		ForceUpdate: ForceUpdate,
 		//albums: dimAlbum
 	};
 });

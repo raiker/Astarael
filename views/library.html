@@ -2,6 +2,9 @@
 <html>
 <head>
 	<title>Astarael</title>
+	<script>
+		var HOST = "{{ host }}";
+	</script>
 	<script data-main="static/js/main" src="static/js/lib/require.js"></script>
 	<!--<script type="application/javascript" src="static/js/lib/jquery.js"></script>
 	<script type="application/javascript" src="static/js/lib/d3.js"></script>
@@ -13,6 +16,7 @@
 <body>
 	<div id="header">
 		<h1>Astarael</h1>
+		<button id="btnLibrary" style="float: right">Library</button>
 		<button id="btnSettings" style="float: right">Settings</button>
 	</div>
 	<div id="middle">
@@ -56,6 +60,8 @@
 				<label for="txtLibraryPath">Library Path</label>
 				<input id="txtLibraryPath" type="text" />
 				<button id="btnBrowseLibraryPath">Browse...</button>
+				<button id="settingsRescanLibrary">Rescan Library</button>
+				<div id="settingsLog"></div>
 			</div>
 			<div id="libraryDirPicker" class="invisible">
 				<div id="libraryDirPickerTitle"></div>

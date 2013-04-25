@@ -3,6 +3,10 @@ define(['lib/jquery'], function ($$dummy1) {
 		ShowSettings();
 	});
 
+	$("#btnLibrary").on("click", function (eventObject) {
+		ShowArtistView();
+	});
+
 	function ShowArtistView() {
 		$("div#mainview>div").addClass("invisible");
 		$("div#artistview").removeClass("invisible");

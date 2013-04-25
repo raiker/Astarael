@@ -26,7 +26,7 @@
   <ItemGroup>
     <Compile Include="server.py" />
     <Compile Include="setup.py" />
-    <Compile Include="tagreader.py" />
+    <Compile Include="scanner.py" />
     <Compile Include="stagger\commandline.py" />
     <Compile Include="stagger\conversion.py" />
     <Compile Include="stagger\errors.py" />
@@ -38,7 +38,6 @@
     <Compile Include="stagger\tags.py" />
     <Compile Include="stagger\util.py" />
     <Compile Include="stagger\__init__.py" />
-    <Content Include="static\js\app\library.js" />
     <Content Include="static\js\app\librarydata.js" />
     <Content Include="static\js\app\libraryview.js" />
     <Content Include="static\js\app\playqueue.js" />
