@@ -146,6 +146,8 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 
 		var container = d3.select("div#trackview_discs");
 
+		container.selectAll("div").remove(); //hack
+
 		var disc_divs = container.selectAll("div")
 			.data(discs)
 			.enter()
