@@ -65,7 +65,7 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 				console.log(err);
 			} else {
 				//trackdata = crossfilter(data);
-				trackdata = [];
+				trackdata.length = 0;
 				IndexTracks(data);
 
 				updateCallback.fire();
