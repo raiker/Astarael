@@ -43,7 +43,16 @@ class LibraryScanThread(threading.Thread):
         library = new_lib;
         image_dict = new_image_dict;
         self.InvokePostMessage("Library scan complete", "libraryUpdate");
-        scan_running = False;
+        #write the new db out to file
+        try:
+            with open("astarael.db", "wb") as f:
+                pickle.dump((library, image_dict), f)
+        except Exception as ex:
+            self.InvokePostMessage("Error writing to database: " + str(ex));
+        else:
+            self.InvokePostMessage("Library written to database")
+
+        scan_running = False
 
     def InvokePostMessage(self, msg, action = None):
         astarael_ioloop.add_callback(PostNotificationMessage, msg, action);
