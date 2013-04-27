@@ -3,7 +3,9 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 	//called whenever tracks are added to the library
 	librarydata.onUpdate.add(function () {
 		DrawArtistView();
-		viewcontroller.ShowArtistView();
+		if (viewcontroller.getCurrentView() == "loadingview") {
+			viewcontroller.ShowArtistView();
+		}
 	});
 
 	window.onpopstate = function (event) {
@@ -29,7 +31,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 	};
 
 	function DrawArtistView() {
-		var artists = librarydata.album_artists.keys().sort(function (a, b) {
+		var artists = librarydata.getAlbumArtists().keys().sort(function (a, b) {
 			return a.toLowerCase().localeCompare(b.toLowerCase());
 		});
 
@@ -57,14 +59,14 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 
 		tiles.append("div")
 			.classed("detail", true)
-			.text(function (d) { return "Album count: " + librarydata.album_artists.get(d).album_count; });
+			.text(function (d) { return "Album count: " + librarydata.getAlbumArtists().get(d).album_count; });
 		tiles.append("div")
 			.classed("detail", true)
-			.text(function (d) { return "Track count: " + librarydata.album_artists.get(d).track_count; });
+			.text(function (d) { return "Track count: " + librarydata.getAlbumArtists().get(d).track_count; });
 	}
 
 	function DrawAlbumView(artist_name) {
-		var artist = librarydata.album_artists.get(artist_name);
+		var artist = librarydata.getAlbumArtists().get(artist_name);
 
 		//sort by year
 		var albums = artist.albums.keys().sort(function (a, b) {
@@ -128,7 +130,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 	}
 
 	function DrawTrackView(artist_name, album_name) {
-		var artist = librarydata.album_artists.get(artist_name);
+		var artist = librarydata.getAlbumArtists().get(artist_name);
 		var album = artist.albums.get(album_name);
 
 		var discs = album.discs.keys().sort();
@@ -162,7 +164,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 			.data(function (d) {
 				var disc = album.discs.get(d);
 				var tracks = disc.tracks.map(function (track_id) {
-					return { key: track_id, value: librarydata.tracks[track_id] };
+					return { key: track_id, value: librarydata.getTracks()[track_id] };
 				});
 				return tracks.sort(function (a, b) {
 					return a.value.track - b.value.track;

@@ -1,4 +1,6 @@
 define(['lib/jquery'], function ($$dummy1) {
+	var currentview = "loadingview";
+
 	$("#btnSettings").on("click", function (eventObject) {
 		ShowSettings();
 	});
@@ -7,29 +9,34 @@ define(['lib/jquery'], function ($$dummy1) {
 		ShowArtistView();
 	});
 
-	function ShowArtistView() {
+	function ShowCurrentView() {
 		$("div#mainview>div").addClass("invisible");
-		$("div#artistview").removeClass("invisible");
+		$("div#" + currentview).removeClass("invisible");
+	}
+
+	function ShowArtistView() {
+		currentview = "artistview";
+		ShowCurrentView();
 	}
 
 	function ShowAlbumView() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#albumview").removeClass("invisible");
+		currentview = "albumview";
+		ShowCurrentView();
 	}
 
 	function ShowTrackView() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#trackview").removeClass("invisible");
+		currentview = "trackview";
+		ShowCurrentView();
 	}
 
 	function ShowSettings() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#settingsview").removeClass("invisible");
+		currentview = "settingsview";
+		ShowCurrentView();
 	}
 
 	function ShowFolderPicker() {
-		$("div#mainview>div").addClass("invisible");
-		$("div#libraryDirPicker").removeClass("invisible");
+		currentview = "libraryDirPicker";
+		ShowCurrentView();
 	}
 
 	return {
@@ -38,5 +45,6 @@ define(['lib/jquery'], function ($$dummy1) {
 		ShowTrackView: ShowTrackView,
 		ShowSettings: ShowSettings,
 		ShowFolderPicker: ShowFolderPicker,
+		getCurrentView: function () { return currentview; }
 	}
 });

@@ -65,7 +65,8 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 				console.log(err);
 			} else {
 				//trackdata = crossfilter(data);
-				trackdata.length = 0;
+				trackdata = [];
+				album_artists = d3.map();
 				IndexTracks(data);
 
 				updateCallback.fire();
@@ -81,8 +82,8 @@ define(['lib/jquery', 'lib/d3', 'lib/crossfilter'], function ($$dummy1, $$dummy2
 
 	return {
 		onUpdate: updateCallback,
-		tracks: trackdata,
-		album_artists: album_artists,
+		getTracks: function () { return trackdata; },
+		getAlbumArtists: function () { return album_artists; },
 		ForceUpdate: ForceUpdate,
 		//albums: dimAlbum
 	};

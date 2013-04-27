@@ -20,7 +20,7 @@ define(['librarydata', 'lib/d3'], function (librarydata, $$dummy1) {
 				Play(d);
 			})
 			.text(function (d, i) {
-				return librarydata.tracks[d].title;
+				return librarydata.getTracks()[d].title;
 			});
 	}
 
