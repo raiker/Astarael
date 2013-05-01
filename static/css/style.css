@@ -204,3 +204,7 @@ td, th {
 	tr:hover {
 		background-color: #eeeeee;
 	}
+
+audio {
+	width: 100%;
+}
