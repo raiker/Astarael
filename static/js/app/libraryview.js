@@ -174,7 +174,7 @@ define(['librarydata', 'playqueue', 'lib/d3', 'lib/jquery', 'viewcontroller'],
 			.append("div")
 			.classed("trackentry", true)
 			.on("click", function (track, i) {
-				playqueue.replaceQueueAndPlay(track.key);
+				playqueue.add([track.key]);
 			})
 			.text(function (d, i) {
 				return d.value.title;
