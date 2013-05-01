@@ -8,11 +8,13 @@ import os
 import stagger
 import base64
 import hashlib
-import win32api
 import datetime
 import threading
 
 import scanner
+
+if os.name == "nt":
+    import win32api
 
 try:
     with open("astarael.db", "rb") as f:
@@ -196,6 +198,10 @@ application = tornado.web.Application([(r"/", MainHandler),
 ], **settings)
 
 application.listen(17742)
-#tornado.ioloop.IOLoop.instance().start()
-astarael_ioloop = tornado.platform.select.SelectIOLoop.instance()
+
+try:
+    astarael_ioloop = tornado.platform.select.SelectIOLoop.instance()
+except:
+    astarael_ioloop = tornado.ioloop.IOLoop.instance()
+
 astarael_ioloop.start()
