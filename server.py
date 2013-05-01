@@ -28,7 +28,8 @@ try:
     with open("astarael.settings", "rb") as f:
         astarael_settings = pickle.load(f)
 except:
-    astarael_settings = {"libpath": ""}
+    astarael_settings = {"libpath": "",
+                         "port": 17742}
 
 notification_sockets = []
 
@@ -198,7 +199,7 @@ application = tornado.web.Application([(r"/", MainHandler),
     (r"/cats", tornado.web.StaticFileHandler, dict(path=settings['static_path'])) #fixme
 ], **settings)
 
-application.listen(17742)
+application.listen(astarael_settings['port'])
 
 try:
     astarael_ioloop = tornado.platform.select.SelectIOLoop.instance()
